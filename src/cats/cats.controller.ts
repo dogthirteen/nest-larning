@@ -1,53 +1,23 @@
-import {
-  Body,
-  Controller,
-  Get,
-  HostParam,
-  HttpCode,
-  Ip,
-  Post,
-  Query,
-  Req,
-  Headers,
-  Param,
-} from '@nestjs/common';
+import { Body, Controller, Get, HttpCode, Post } from '@nestjs/common';
+import { CatsService } from '../cats/cats.service';
+import { Cat } from '../cats/cats.interface';
 
-export class query {
-  id: string;
-}
-
-@Controller('cats/breed')
+@Controller('cats')
 export class CatsController {
-  @Get(':name/:age')
-  findAll(
-    @Param() params: any,
-    @Query() query: query,
-    @Req() request: Request,
-  ): string {
-    console.log('query', query);
-    console.log('Param', params);
-    return 'this is cats Get';
+  constructor(private catsService: CatsService) {}
+
+  @Get('/index')
+  @HttpCode(200)
+  async findAll(): Promise<Cat[]> {
+    return this.catsService.findAll();
   }
 
-  @Post()
+  @Post('add')
   @HttpCode(200)
-  create(
-    @Body() body: any,
-    @Ip() ip: any,
-    @HostParam() host: any,
-    @Headers() headers: any,
-  ): object {
-    /**
-     * 解析表单请求
-     * npm install --save @nestjs/platform-express multer
-    */
-    console.log('ip :>> ', ip);
-    console.log('host :>> ', host);
-    console.log('body :>> ', body);
-    console.log('headers :>> ', headers);
+  create(@Body() createCatDto: Cat) {
+    this.catsService.create(createCatDto);
     return {
       code: 1,
-      data: 'this is cats Post',
     };
   }
 }

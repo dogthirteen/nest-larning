@@ -1,6 +1,6 @@
 import { Injectable, NestMiddleware } from '@nestjs/common';
 import { Request, Response } from 'express';
-const multer = require('multer');//引入multer模块
+const multer = require('multer'); //引入multer模块
 
 @Injectable()
 export class MulterMiddleware implements NestMiddleware {

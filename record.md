@@ -8,7 +8,8 @@
   npm i -g @nestjs/cli //安装脚手架
   nest -v //查看版本  是否安装成功
   nest create [name] //使用脚手架创建项目
-  nest g controller [name] //新建控制器模板
+  nest g controller [name] //新建controller模板
+  nest g service [name] //新增service模板
   ```
   
 
